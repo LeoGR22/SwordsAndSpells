@@ -10,8 +10,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.setCollideWorldBounds(true);
 
         //adjust hitbox
-        this.body.setSize(30, 32);
-        this.body.setOffset(32.5, 50);
+        this.body.setSize(35, 80);
+        this.body.setOffset(40, 48);
 
         // Criação das animações
         this.createAnimations(scene);
@@ -30,31 +30,50 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         scene.anims.create({
             key: 'run',
-            frames: scene.anims.generateFrameNumbers('run', { start: 0, end: 15 }),
-            frameRate: 15,
+            frames: scene.anims.generateFrameNumbers('run', { start: 0, end: 9 }),
+            frameRate: 10,
             repeat: -1
+        });
+
+        scene.anims.create({
+            key: 'jump',
+            frames: scene.anims.generateFrameNumbers('jump', { start: 0, end: 9 }),
+            frameRate: 10,
+            repeat: 0 
         });
     }
 
     update() {
-        if (this.cursors.left.isDown) {
-            this.setVelocityX(-160);
-            this.anims.play('run', true);
-            this.setFlipX(true);
+    const onGround = this.body.blocked.down || this.body.touching.down;
 
-        } else if (this.cursors.right.isDown) {
-            this.setVelocityX(160);
-            this.anims.play('run', true);
-            this.setFlipX(false);
+    // Movimento horizontal e animações
+    if (this.cursors.left.isDown) {
+        this.setVelocityX(-200);
+        if (onGround) this.anims.play('run', true);
+        this.setFlipX(true);
 
-        } else {
-            this.setVelocityX(0);
-            this.anims.play('idle', true);
-        }
+    } else if (this.cursors.right.isDown) {
+        this.setVelocityX(200);
+        if (onGround) this.anims.play('run', true);
+        this.setFlipX(false);
 
-
-        if (this.cursors.up.isDown && this.body.touching.down) {
-            this.setVelocityY(-330);
-        }
+    } else {
+        this.setVelocityX(0);
+        if (onGround) this.anims.play('idle', true);
     }
+
+    // Pulo
+    if (this.cursors.up.isDown && onGround) {
+        this.setVelocityY(-330);
+        this.anims.play('jump', true);
+    }
+
+    // Ajuste de hitbox dinâmico com base no flip
+    if (this.flipX) {
+        this.body.setOffset(55, 48); // Quando virado para a esquerda
+    } else {
+        this.body.setOffset(38, 48); // Quando virado para a direita
+    }
+}
+
 }

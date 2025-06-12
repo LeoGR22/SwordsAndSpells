@@ -1,5 +1,6 @@
 import { Start } from './scenes/Start.js';
-import { Plataformer } from './scenes/Plataformer.js';
+import { SceneLoader } from './scenes/SceneLoader.js';
+import {Battleground} from './scenes/Battleground.js'
 
 const config = {
     type: Phaser.AUTO,
@@ -12,7 +13,8 @@ const config = {
     pixelArt: true,
     scene: [
         //Start,
-        Plataformer
+        SceneLoader,
+        Battleground
     ],
     scale: {
         mode: Phaser.Scale.FIT,
@@ -21,7 +23,7 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: {y: 500},
+            gravity: {y: 700},
             debug: true
         }
     }
