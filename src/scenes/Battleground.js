@@ -1,4 +1,6 @@
 import { Player } from '../prefabs/Player.js';
+import { Enemy } from '../prefabs/Enemy.js';
+import { Projectile } from '../prefabs/Projectile.js';
 
 export class Battleground extends Phaser.Scene {
     constructor() {
@@ -6,19 +8,26 @@ export class Battleground extends Phaser.Scene {
     }
 
     create() {
-        // Cria o chão: um retângulo verde na parte inferior
-        const ground = this.add.rectangle(640, 700, 1280, 40, 0x00ff00);
-        this.physics.add.existing(ground, true); // corpo estático (true)
+        // Arena de chão
+        const ground = this.add.rectangle(640, 710, 1280, 20, 0x00ff00);
+        this.physics.add.existing(ground, true);
 
-        // Instancia o player no meio da tela (x=640, y=100)
-        this.player = new Player(this, 640, 100);
+        // Ativar colisão com bordas do mundo
+        this.physics.world.setBoundsCollision(true, true, true, true);
 
-        // Configura colisão entre player e chão
+        // Grupos
+        this.projectiles = this.physics.add.group();
+
+        // Entidades
+        this.player = new Player(this, 640, 500);
+        this.enemy = new Enemy(this, 800, 500, this.player);
+
+        // Colisão com chão
         this.physics.add.collider(this.player, ground);
+
     }
 
     update() {
-        // Atualiza o player (movimento, animações, controles)
         this.player.update();
     }
 }
