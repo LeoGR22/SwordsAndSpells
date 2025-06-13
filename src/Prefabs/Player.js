@@ -70,11 +70,11 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             repeat: 0
         });
 
-        // Evento: dispara projétil no frame 7
+        //dispara projétil no frame 7
         scene.events.on('update', () => {
             if (this.anims.currentAnim?.key === 'attack2' && this.anims.currentFrame?.index === 7 && !this.projectileFired) {
                 const direction = this.flipX ? -1 : 1;
-                const projectile = new Projectile(this.scene, this.x + (direction * 50), this.y, direction);
+                const projectile = new Projectile(this.scene, this.x + (direction * 50), this.y + 35, direction);
                 this.scene.projectiles.add(projectile);
 
                 this.scene.physics.add.overlap(projectile, this.scene.enemy, (proj, enemy) => {
@@ -87,7 +87,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 this.projectileFired = true;
             }
 
-            // Resetar flag ao fim da animação
+            //resetar flag ao fim da animação
             if (this.anims.currentAnim?.key !== 'attack2') {
                 this.projectileFired = false;
             }
@@ -180,7 +180,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             return;
         }
 
-        // Ataque 2 com projétil (instanciado no frame 7)
+        //ataque 2 com projétil
         if (Phaser.Input.Keyboard.JustDown(this.attack2Key)) {
             this.setVelocity(0, 0);
             this.anims.play('attack2');
@@ -194,7 +194,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             return;
         }
 
-        // Animações de movimento
+        //animações de movimento
         if (this.body.velocity.x !== 0) {
             this.anims.play('run', true);
         } else if (this.body.velocity.y !== 0) {
@@ -203,7 +203,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.anims.play('idle', true);
         }
 
-        // Ajuste da hitbox com base na direção
+        //ajuste da hitbox com base na direção
         if (this.flipX) {
             this.body.setOffset(55, 48);
         } else {

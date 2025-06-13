@@ -8,21 +8,22 @@ export class Battleground extends Phaser.Scene {
     }
 
     create() {
-        // Arena de chão
+        //arena de chão
         const ground = this.add.rectangle(640, 710, 1280, 20, 0x00ff00);
         this.physics.add.existing(ground, true);
 
-        // Ativar colisão com bordas do mundo
+        //ativar colisão com bordas do mundo
         this.physics.world.setBoundsCollision(true, true, true, true);
 
         // Grupos
-        this.projectiles = this.physics.add.group();
+        //this.projectiles = this.physics.add.group();
+        this.projectiles = this.add.group();
 
-        // Entidades
+        //spawns
         this.player = new Player(this, 640, 500);
         this.enemy = new Enemy(this, 800, 500, this.player);
 
-        // Colisão com chão
+        //colisão com chão
         this.physics.add.collider(this.player, ground);
 
     }
