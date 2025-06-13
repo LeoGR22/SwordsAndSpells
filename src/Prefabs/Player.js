@@ -108,7 +108,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('hurt', true);
 
         const knockbackDirection = this.x < sourceX ? -1 : 1;
-        this.setVelocity(knockbackDirection * 300, -150);
+        this.setVelocity(knockbackDirection * 300, 0);
 
         this.scene.time.delayedCall(500, () => {
             this.isKnockedBack = false;
@@ -151,7 +151,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityX(0);
         }
 
-        if (this.cursors.up.isDown && this.y > 400) {
+        if (this.cursors.up.isDown && this.y > 280) {
             this.setVelocityY(-speed);
         } else if (this.cursors.down.isDown && this.y < 650) {
             this.setVelocityY(speed);

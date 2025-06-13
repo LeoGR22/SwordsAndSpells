@@ -8,8 +8,14 @@ export class Battleground extends Phaser.Scene {
     }
 
     create() {
+
+        this.add.image(640, 360, 'background') 
+            .setDisplaySize(1280, 720) 
+            .setDepth(-1);  
+
+
         //arena de chão
-        const ground = this.add.rectangle(640, 710, 1280, 20, 0x00ff00);
+        const ground = this.add.rectangle(640, 710, 1280, 20);
         this.physics.add.existing(ground, true);
 
         //ativar colisão com bordas do mundo
@@ -28,7 +34,7 @@ export class Battleground extends Phaser.Scene {
 
     }
 
-    update() {
+    update(time, delta) {
         this.player.update();
     }
 }

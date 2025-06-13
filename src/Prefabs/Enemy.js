@@ -60,6 +60,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
             frameRate: 10,
             repeat: 0
         });
+
     }
 
     preUpdate(time, delta) {
@@ -120,6 +121,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('enemy_hurt', true);
         this.setTint(0xff0000);
 
+
         const knockbackForce = 200;
         const direction = this.x < sourceX ? -1 : 1;
         this.setVelocity(knockbackForce * direction, -knockbackForce / 2);
@@ -144,12 +146,12 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    die() {
-        this.isAlive = false;
-        this.setVelocity(0, 0);
-        this.anims.play('enemy_dead');
-        this.once('animationcomplete', () => {
-            this.destroy();
-        });
-    }
+        die() {
+            this.isAlive = false;
+            this.setVelocity(0, 0);
+            this.anims.play('enemy_dead');
+            this.once('animationcomplete', () => {
+                this.destroy();
+            });
+        }
 }

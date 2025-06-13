@@ -4,6 +4,9 @@ export class SceneLoader extends Phaser.Scene {
     }
 
     preload() {
+
+        this.load.image('background', 'Assets/Background/Bg.png');
+
         //////////////////////////////////////////////
         // Carrega os spritesheets de MainCharacter
         this.load.spritesheet('idle', 'Assets/MainCharacter/Idle.png', {
@@ -45,7 +48,7 @@ export class SceneLoader extends Phaser.Scene {
 
 
 
-        
+        /////////////////////////////////////////////////
         //Carrega os sprites dos inimigos
         this.load.spritesheet('enemy_idle', 'Assets/Enemy1/Idle.png', {
             frameWidth: 128,
@@ -71,6 +74,7 @@ export class SceneLoader extends Phaser.Scene {
             frameWidth: 128,
             frameHeight: 128
         });
+        ///////////////////////////////////////////////////////
 
 
         // (Opcional) Indicador de carregamento

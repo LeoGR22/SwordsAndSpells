@@ -6,8 +6,11 @@ export class Projectile extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
 
+        this.body.setSize(35, 25);      
+        this.body.setOffset(10, 50);
+
         //configs iniciais
-        this.setScale(1.5);
+        this.setScale(2);
         this.setCollideWorldBounds(true);
         this.body.onWorldBounds = true;
         this.body.setAllowGravity(false);
