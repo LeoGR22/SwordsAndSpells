@@ -12,20 +12,15 @@ export class Battleground extends Phaser.Scene {
             .setDisplaySize(1280, 720)
             .setDepth(-1);
 
-        // Arena de chão
         const ground = this.add.rectangle(640, 710, 1280, 20);
         this.physics.add.existing(ground, true);
 
-        // Ativar colisão com bordas do mundo
         this.physics.world.setBoundsCollision(true, true, true, true);
 
-        // Grupos
         this.projectiles = this.add.group();
 
-        // Spawns iniciais
         this.player = new Player(this, 640, 500);
         
-        // Colisão com o chão
         this.physics.add.collider(this.player, ground);
 
         // ===== SPAWN DE INIMIGOS =====
@@ -38,7 +33,6 @@ export class Battleground extends Phaser.Scene {
             loop: true
         });
 
-        // Colisão entre projéteis e inimigos
         this.physics.add.overlap(this.projectiles, this.enemies, (projectile, enemy) => {
             projectile.destroy();
             enemy.takeDamage(1, projectile.x);

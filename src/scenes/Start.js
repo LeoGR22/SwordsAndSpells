@@ -1,45 +1,72 @@
 export class Start extends Phaser.Scene {
-
     constructor() {
         super('Start');
     }
 
     preload() {
-        this.load.image('background', 'assets/space.png');
-        this.load.image('logo', 'assets/phaser.png');
-
-        //  The ship sprite is CC0 from https://ansimuz.itch.io - check out his other work!
-        this.load.spritesheet('ship', 'assets/spaceship.png', { frameWidth: 176, frameHeight: 96 });
+        this.load.image('menu', 'assets/Background/Menu.png');
     }
 
     create() {
-        this.background = this.add.tileSprite(640, 360, 1280, 720, 'background');
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
 
-        const logo = this.add.image(640, 200, 'logo');
+        this.add.image(640, 360, 'menu')
+            .setDisplaySize(1280, 720)
+            .setDepth(-1);
 
-        const ship = this.add.sprite(640, 360, 'ship');
+        this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.6)
+            .setDepth(0);
 
-        ship.anims.create({
-            key: 'fly',
-            frames: this.anims.generateFrameNumbers('ship', { start: 0, end: 2 }),
-            frameRate: 15,
-            repeat: -1
-        });
+        this.add.text(640, 300, 'Jogo', {
+            fontFamily: 'Courier New',
+            fontSize: '92px',
+            color: '#FFA500'
+        }).setOrigin(0.5);
 
-        ship.play('fly');
+        const pressEnter = this.add.text(640, 380, 'Press Enter to play', {
+            fontFamily: 'Courier New',
+            fontSize: '44px',
+            color: '#FFA500'
+        }).setOrigin(0.5);
 
         this.tweens.add({
-            targets: logo,
-            y: 400,
-            duration: 1500,
-            ease: 'Sine.inOut',
+            targets: pressEnter,
+            alpha: { from: 1, to: 0 },
+            duration: 800,
             yoyo: true,
-            loop: -1
+            repeat: -1,
+            ease: 'Sine.easeInOut'
+        });
+
+        const instructions = this.add.text(20, 700, 
+            'WASD to move\nJ to MeleeAttack\nK to projectile', {
+            fontFamily: 'Courier New',
+            fontSize: '30px',
+            color: '#FFA500',
+            align: 'left',
+        }).setOrigin(0, 1);
+
+        const creditsText = this.add.text(1250, 700, 'Leonardo Gabriel Rendaki\nFreddy Matheus Gonçalves\nDavi Henrique Moreira\nFellipe Luiz Serpe Barros', {
+            fontFamily: 'Courier New',
+            fontSize: '34px',
+            color: '#E0E0E0',
+            align: 'right'
+        }).setOrigin(1, 1);
+
+        this.tweens.add({
+            targets: creditsText,
+            y: creditsText.y - 10,
+            duration: 2000,
+            yoyo: true,
+            repeat: -1,
+            ease: 'Sine.easeInOut'
+        });
+
+        this.input.keyboard.on('keydown-ENTER', () => {
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.cameras.main.once('camerafadeoutcomplete', () => {
+                this.scene.start('SceneLoader', 'Battleground');
+            });
         });
     }
-
-    update() {
-        this.background.tilePositionX += 2;
-    }
-    
 }

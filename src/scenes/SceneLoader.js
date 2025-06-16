@@ -77,7 +77,6 @@ export class SceneLoader extends Phaser.Scene {
         ///////////////////////////////////////////////////////
 
 
-        // (Opcional) Indicador de carregamento
         this.add.text(640, 360, 'Carregando...', {
             fontSize: '24px',
             fill: '#ffffff'

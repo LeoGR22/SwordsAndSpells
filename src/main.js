@@ -12,7 +12,7 @@ const config = {
     backgroundColor: '#000000',
     pixelArt: true,
     scene: [
-        //Start,
+        Start,
         SceneLoader,
         Battleground
     ],
@@ -24,7 +24,7 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: {y: 0},
-            debug: true
+            debug: false
         }
     }
 }
