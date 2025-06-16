@@ -13,7 +13,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.setSize(35, 80);
         this.body.setOffset(40, 48);
 
-        this.health = 50;
+        this.health = 3;
         this.isInvulnerable = false;
         this.isKnockedBack = false;
         this.isAttacking = false;
@@ -21,7 +21,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.createAnimations(scene);
 
-        this.cursors = scene.input.keyboard.createCursorKeys();
+        this.keyW = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.keyA = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.keyS = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.keyD = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.attack1Key = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
         this.attack2Key = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
     }
@@ -140,24 +143,26 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.isAttacking || this.isKnockedBack) return;
 
-        // Movimento
-        if (this.cursors.left.isDown) {
+        // Movimento horizontal
+        if (this.keyA.isDown) {
             this.setVelocityX(-speed);
             this.setFlipX(true);
-        } else if (this.cursors.right.isDown) {
+        } else if (this.keyD.isDown) {
             this.setVelocityX(speed);
             this.setFlipX(false);
         } else {
             this.setVelocityX(0);
         }
 
-        if (this.cursors.up.isDown && this.y > 280) {
+        // Movimento vertical
+        if (this.keyW.isDown && this.y > 280) {
             this.setVelocityY(-speed);
-        } else if (this.cursors.down.isDown && this.y < 650) {
+        } else if (this.keyS.isDown && this.y < 650) {
             this.setVelocityY(speed);
         } else {
             this.setVelocityY(0);
         }
+
 
         // Ataque 1
         if (Phaser.Input.Keyboard.JustDown(this.attack1Key)) {
@@ -168,13 +173,17 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.once('animationcomplete-attack1', () => {
                 this.isAttacking = false;
 
-                const enemy = this.scene.enemy;
-                const distance = Phaser.Math.Distance.Between(this.x, this.y, enemy.x, enemy.y);
-                const isInFront = this.flipX ? enemy.x < this.x : enemy.x > this.x;
+                // Percorre todos os inimigos no grupo
+                this.scene.enemies.children.iterate(enemy => {
+                    if (!enemy || !enemy.isAlive) return;
 
-                if (distance < 120 && isInFront && enemy.isAlive) {
-                    enemy.takeDamage(1, this.x);
-                }
+                    const distance = Phaser.Math.Distance.Between(this.x, this.y, enemy.x, enemy.y);
+                    const isInFront = this.flipX ? enemy.x < this.x : enemy.x > this.x;
+
+                    if (distance < 120 && isInFront) {
+                        enemy.takeDamage(1, this.x);
+                    }
+                });
             });
 
             return;

@@ -60,7 +60,6 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
             frameRate: 10,
             repeat: 0
         });
-
     }
 
     preUpdate(time, delta) {
@@ -92,7 +91,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('enemy_attack', true);
 
         this.once('animationcomplete-enemy_attack', () => {
-            // Dano é aplicado no fim da animação
+            // Aplica dano no fim da animação
             const distance = Phaser.Math.Distance.Between(this.x, this.y, this.player.x, this.player.y);
             if (distance <= this.attackRange + 10) {
                 this.player.takeDamage(1, this.x);
@@ -121,7 +120,6 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('enemy_hurt', true);
         this.setTint(0xff0000);
 
-
         const knockbackForce = 200;
         const direction = this.x < sourceX ? -1 : 1;
         this.setVelocity(knockbackForce * direction, -knockbackForce / 2);
@@ -146,12 +144,12 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-        die() {
-            this.isAlive = false;
-            this.setVelocity(0, 0);
-            this.anims.play('enemy_dead');
-            this.once('animationcomplete', () => {
-                this.destroy();
-            });
-        }
+    die() {
+        this.isAlive = false;
+        this.setVelocity(0, 0);
+        this.anims.play('enemy_dead');
+        this.once('animationcomplete-enemy_dead', () => {
+            this.destroy();
+        });
+    }
 }
