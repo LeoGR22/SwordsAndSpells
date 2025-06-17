@@ -1,7 +1,7 @@
 Trabalho desenvolvido por:
-Leonardo Gabriel Rendaki
-Freddy Matheus Gonçalves
-Davi Henrique Moreira
+Leonardo Gabriel Rendaki,
+Freddy Matheus Gonçalves,
+Davi Henrique Moreira,
 Fellipe Luiz Serpe Barros
 
 
