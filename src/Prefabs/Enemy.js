@@ -23,6 +23,9 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.isAlive = true;
 
         this.createAnimations(scene);
+
+        this.swordSound = scene.sound.add('swordSound');
+        this.hurtSound = scene.sound.add('hurtSound');
     }
 
     createAnimations(scene) {
@@ -89,6 +92,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.isAttacking = true;
         this.setVelocity(0, 0);
         this.anims.play('enemy_attack', true);
+        this.swordSound.play();
 
         this.once('animationcomplete-enemy_attack', () => {
             // Aplica dano no fim da animação
@@ -145,7 +149,8 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     die() {
-         this.emit('death');
+        this.emit('death');
+        this.hurtSound.play();
         this.isAlive = false;
         this.setVelocity(0, 0);
         this.anims.play('enemy_dead');

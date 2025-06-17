@@ -21,7 +21,7 @@ export class Start extends Phaser.Scene {
         this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.8)
             .setDepth(0);
 
-        this.add.text(640, 300, 'Jogo', {
+        this.add.text(640, 300, 'Blades and Spells', {
             fontFamily: 'Courier New',
             fontSize: '92px',
             color: '#FFA500'

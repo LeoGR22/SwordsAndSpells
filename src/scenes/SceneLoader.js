@@ -8,6 +8,11 @@ export class SceneLoader extends Phaser.Scene {
         this.load.image('background', 'Assets/Background/Bg.png');
         this.load.audio('gameplaymusic', 'Assets/Sounds/Musics/gameplaymusic.mp3')
 
+        this.load.audio('attack1Sound', 'Assets/Sounds/attack1.mp3');
+        this.load.audio('attack2Sound', 'Assets/Sounds/attack2.mp3');
+        this.load.audio('swordSound', 'Assets/Sounds/sword.mp3');
+        this.load.audio('hurtSound', 'Assets/Sounds/hurt.mp3');
+
         //////////////////////////////////////////////
         // Carrega os spritesheets de MainCharacter
         this.load.spritesheet('idle', 'Assets/MainCharacter/Idle.png', {

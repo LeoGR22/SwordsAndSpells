@@ -27,6 +27,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.keyD = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.attack1Key = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
         this.attack2Key = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
+
+        this.attack1Sound = scene.sound.add('attack1Sound');
+        this.attack2Sound = scene.sound.add('attack2Sound');
     }
 
     createAnimations(scene) {
@@ -168,6 +171,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         if (Phaser.Input.Keyboard.JustDown(this.attack1Key)) {
             this.setVelocity(0, 0);
             this.anims.play('attack1');
+            this.attack1Sound.play();
             this.isAttacking = true;
 
             this.once('animationcomplete-attack1', () => {
@@ -193,6 +197,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         if (Phaser.Input.Keyboard.JustDown(this.attack2Key)) {
             this.setVelocity(0, 0);
             this.anims.play('attack2');
+            this.attack2Sound.play();
             this.isAttacking = true;
 
             this.once('animationcomplete-attack2', () => {
