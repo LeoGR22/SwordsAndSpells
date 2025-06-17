@@ -4,7 +4,8 @@ Freddy Matheus Gonçalves,
 Davi Henrique Moreira,
 Fellipe Luiz Serpe Barros
 
-
+LINK DO VÍDEO YOUTUBE:
+https://youtu.be/ytwC6XZ0p1E?si=EgoBW0AOu4-R_JDG
 
 Instruções para jogar:
 
