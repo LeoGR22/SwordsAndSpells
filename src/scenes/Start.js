@@ -5,16 +5,20 @@ export class Start extends Phaser.Scene {
 
     preload() {
         this.load.image('menu', 'assets/Background/Menu.png');
+        this.load.audio('menumusic', 'assets/Sounds/Musics/menumusic.mp3');
     }
 
     create() {
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
+        this.menuMusic = this.sound.add('menumusic', { loop: true, volume: 0.5 });
+        this.menuMusic.play();
+
         this.add.image(640, 360, 'menu')
             .setDisplaySize(1280, 720)
             .setDepth(-1);
 
-        this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.6)
+        this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.8)
             .setDepth(0);
 
         this.add.text(640, 300, 'Jogo', {
@@ -63,6 +67,7 @@ export class Start extends Phaser.Scene {
         });
 
         this.input.keyboard.on('keydown-ENTER', () => {
+            this.menuMusic.pause();
             this.cameras.main.fadeOut(1000, 0, 0, 0);
             this.cameras.main.once('camerafadeoutcomplete', () => {
                 this.scene.start('SceneLoader', 'Battleground');

@@ -6,6 +6,7 @@ export class SceneLoader extends Phaser.Scene {
     preload() {
 
         this.load.image('background', 'Assets/Background/Bg.png');
+        this.load.audio('gameplaymusic', 'Assets/Sounds/Musics/gameplaymusic.mp3')
 
         //////////////////////////////////////////////
         // Carrega os spritesheets de MainCharacter

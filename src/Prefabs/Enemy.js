@@ -145,6 +145,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     die() {
+         this.emit('death');
         this.isAlive = false;
         this.setVelocity(0, 0);
         this.anims.play('enemy_dead');
